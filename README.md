@@ -4,6 +4,8 @@ I built a lead-research pipeline that runs AI on a lead only after it passes a d
 
 On a 15-lead test set, the gate blocked AI research on 7 of 15 rows. That skipped 47% of the AI calls. The 8 rows it did research came back with zero fabricated fields.
 
+![Clay pipeline](Clay%20Pipeline.png)
+
 ## Why most AI research columns fail
 
 Point an AI research column at a whole lead list and two things go wrong.
@@ -16,11 +18,9 @@ I built this to fix the second problem first.
 
 ## How it works
 
-```
 Lead → verify email → enrich company → GATE → research (if passed) → refusal check → typed fields → HubSpot
-                                          |
-                                     fail → stop, spend nothing
-```
+|
+fail → stop, spend nothing
 
 **The gate needs two yeses.** A lead reaches the AI only if the email verifies as deliverable (ZeroBounce) AND the domain resolves to a real company with firmographic data. One signal is not enough. A real company with a dead contact email fails. A clean-looking email on a made-up domain fails. I check both because either one alone lets bad leads through.
 
@@ -28,7 +28,13 @@ Lead → verify email → enrich company → GATE → research (if passed) → r
 
 **The agent has to refuse.** The prompt gives it one hard rule: if you cannot ground a claim in a page you actually opened, return `{"status": "insufficient_evidence"}` and stop. I handle that refusal as its own path, so a refusal never gets parsed as if it were a finding. The anti-hallucination guarantee lives in the prompt contract, not in wishful thinking.
 
+![Claygent prompt with refusal rules](Claygent%20Prompt.png)
+
 **Results land as typed fields.** Each result splits into `summary`, `buying_signal`, `confidence`, and `sources`, and each writes to its own HubSpot property. A rep sees the claim, how confident the agent was, and the exact URLs it read. No paragraph of maybe-true text dumped into a notes box.
+
+![HubSpot typed research](HubSpot%20Research%201.png)
+
+![HubSpot contacts imported](HubSpot%20Research%202.png)
 
 ## What the run produced
 
