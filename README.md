@@ -4,6 +4,8 @@ I built a lead-research pipeline that runs AI on a lead only after it passes a d
 
 On a 15-lead test set, the gate blocked AI research on 7 of 15 rows. That skipped 47% of the AI calls. The 8 rows it did research came back with zero fabricated fields.
 
+**▶ Watch the 2-minute walkthrough:** [loom.com/share/8cf54cd6](https://www.loom.com/share/8cf54cd60e8341ff8325d75da0385e0c)
+
 ![Clay pipeline](Clay%20Pipeline.png)
 
 ## Why most AI research columns fail
